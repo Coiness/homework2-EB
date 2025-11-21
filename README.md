@@ -62,15 +62,14 @@ npm run lint:fix     # Fix ESLint errors
 
 ```
 .
-├── src/
-│   ├── app/              # Next.js app directory
-│   │   ├── globals.css   # Global styles
-│   │   ├── layout.tsx    # Root layout
-│   │   └── page.tsx      # Home page
-│   ├── components/       # React components
-│   │   └── ui/           # shadcn/ui components
-│   ├── lib/              # Utility functions
-│   └── store/            # Zustand stores
+├── app/              # Next.js app directory
+│   ├── globals.css   # Global styles
+│   ├── layout.tsx    # Root layout
+│   └── page.tsx      # Home page
+├── components/       # React components
+│   └── ui/           # shadcn/ui components
+├── lib/              # Utility functions
+├── store/            # Zustand stores
 ├── .github/
 │   └── workflows/        # GitHub Actions workflows
 ├── .husky/               # Git hooks
@@ -81,7 +80,7 @@ npm run lint:fix     # Fix ESLint errors
 
 ### TailwindCSS
 
-Configured with custom theme variables in `tailwind.config.ts` and `src/app/globals.css`.
+Configured with custom theme variables in `tailwind.config.ts` and `app/globals.css`.
 
 ### ESLint
 
