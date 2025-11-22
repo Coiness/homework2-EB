@@ -72,23 +72,37 @@ export const handlers = [
               size:"S",
             }
           }
-        },{
-          skuId:"skuId456",
-          quantity:100,
-          addedAt:202511221445,
-          product:{
-            name:"T-shirt",
-            image:'https://placehold.co/600x600/png',
-            price:100,
-            attributes:{
-              color:"red",
-              size:"M",
-            }
-          }
-        }
+        },
       ],
       totalPrice:20000,
       totalQuantity:200
     })
+  }),
+
+  // 拦截添加购物车逻辑
+  http.post('https://api.example.com/api/v1/cart/:uid', async ({ params, request }) => {
+    const { uid } = params
+    const body = await request.json() as { skuId: string; quantity: number }
+    
+    // 这里模拟添加逻辑：直接返回一个更新后的购物车对象
+    return HttpResponse.json({
+      uid,
+      items: [
+        {
+          skuId: body.skuId,
+          quantity: body.quantity,
+          addedAt: Date.now(),
+          product: { // 模拟后端聚合了商品信息
+            name: "新加入的商品",
+            price: 199,
+            image: "https://placehold.co/100x100",
+            attributes: {}
+          }
+        }
+      ],
+      totalPrice: 199 * body.quantity,
+      totalQuantity: body.quantity
+    })
   })
+
 ]

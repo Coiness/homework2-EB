@@ -1,4 +1,4 @@
-import { GetProductsResponse,ProductFilter,ProductDetail,Cart } from "@/types";
+import { GetProductsResponse,ProductFilter,ProductDetail,Cart,CartItem} from "@/types";
 
 const BASE_URL = "https://api.example.com/api/v1";
 
@@ -32,6 +32,21 @@ export const api = {
     // 获取购物车
     getCart:(uid:string) =>{
         return fetcher<Cart>(`/cart/${uid}`)
+    },
+
+    // 将物品加入购物车
+    addToCart: (uid: string, skuId: string, quantity: number) => {
+        return fetcher<Cart>(`/cart/${uid}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                skuId,
+                quantity,
+                addedAt: Date.now()
+            }),
+        });
     },
 }
 

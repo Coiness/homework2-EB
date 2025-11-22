@@ -47,4 +47,29 @@ describe('API Client', () => {
     expect(firstCartItem).toHaveProperty('product')
   })
 
+  // 测试加入购物车
+  it('addToCart should add item and return updated cart', async () => {
+    const uid = 'user_test_add'
+    const skuId = 'sku_new_123'
+    const quantity = 2
+
+    // 1. 调用 API
+    const data = await api.addToCart(uid, skuId, quantity)
+
+    // 2. 验证返回的购物车结构
+    expect(data).toBeDefined()
+    expect(data.uid).toBe(uid)
+    
+    // 3. 验证购物车中是否真的包含了我们添加的商品
+    // 注意：Mock Handler 应该返回包含该商品的列表
+    const addedItem = data.items.find(item => item.skuId === skuId)
+    
+    expect(addedItem).toBeDefined() // 应该能找到这个商品
+    expect(addedItem?.quantity).toBe(quantity) // 数量应该对得上
+
+    // 4. 验证后端是否帮我们聚合了商品详情 (product 字段)
+    expect(addedItem?.product).toBeDefined()
+    expect(addedItem?.product?.name).toBeDefined()
+  })
+
 })
