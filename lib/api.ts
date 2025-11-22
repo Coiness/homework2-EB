@@ -1,4 +1,4 @@
-import { GetProductsResponse,ProductFilter,ProductDetail } from "@/types";
+import { GetProductsResponse,ProductFilter,ProductDetail,Cart } from "@/types";
 
 const BASE_URL = "https://api.example.com/api/v1";
 
@@ -27,6 +27,11 @@ export const api = {
     // 获取商品详情
     getProductDetail:(id:string) =>{
         return fetcher<ProductDetail>(`/product/${id}`)
-    }
+    },
+
+    // 获取购物车
+    getCart:(uid:string) =>{
+        return fetcher<Cart>(`/cart/${uid}`)
+    },
 }
 

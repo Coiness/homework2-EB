@@ -29,4 +29,22 @@ describe('API Client', () => {
     expect(data.id).toBe(productId)
     expect(data.name).toContain('商品详情') // 验证 mock 返回的名字
   })
+
+  // 测试获取购物车
+  it('getCart should fetch cart correctly',async()=>{
+    const uid = 'userFirst'
+    const data = await api.getCart(uid)
+
+    expect(data).toBeDefined()
+    expect(data.uid).toBe(uid)
+    expect(data.totalPrice).toBeDefined()
+    expect(data.totalQuantity).toBeDefined()
+
+    const firstCartItem = data.items[0]
+    expect(firstCartItem).toHaveProperty('skuId')
+    expect(firstCartItem).toHaveProperty('quantity')
+    expect(firstCartItem).toHaveProperty('addedAt')
+    expect(firstCartItem).toHaveProperty('product')
+  })
+
 })

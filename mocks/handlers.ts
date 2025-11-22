@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw'
-import { GetProductsResponse, ProductSimple } from '@/types'
+import { GetProductsResponse, ProductSimple ,CartItem} from '@/types'
 
 // 模拟一些假数据
 const mockProducts: ProductSimple[] = Array.from({ length: 20 }).map((_, i) => ({
@@ -49,6 +49,46 @@ export const handlers = [
       attributes: [],
       skus: [],
       recommendations: []
+    })
+  }),
+
+  // 拦截 GET /api/v1/cart     一般后面要加用户ID，这里的需求暂时不需要，想了想还是加上吧
+  http.get('https://api.example.com/api/v1/cart/:uid',({params}) =>{
+    const {uid} = params
+
+    return HttpResponse.json({
+      uid,
+      items:[
+        {
+          skuId:"skuId123",
+          quantity:100,
+          addedAt:202511221445,
+          product:{
+            name:"T-shirt",
+            image:'https://placehold.co/600x600/png',
+            price:100,
+            attributes:{
+              color:"red",
+              size:"S",
+            }
+          }
+        },{
+          skuId:"skuId456",
+          quantity:100,
+          addedAt:202511221445,
+          product:{
+            name:"T-shirt",
+            image:'https://placehold.co/600x600/png',
+            price:100,
+            attributes:{
+              color:"red",
+              size:"M",
+            }
+          }
+        }
+      ],
+      totalPrice:20000,
+      totalQuantity:200
     })
   })
 ]
