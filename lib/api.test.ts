@@ -1,14 +1,32 @@
 import { describe, it, expect } from 'vitest'
+import { api } from './api'
 
-describe('API', () => {
-  it('fetches user data', async () => {
-    const response = await fetch('https://api.example.com/user')
-    const data = await response.json()
+describe('API Client', () => {
+  // 测试获取商品列表
+  it('getProducts should fetch product list correctly', async () => {
+    // 1. 调用你的 API 函数
+    // 我们传入一些筛选参数，看看是否能正常工作
+    const data = await api.getProducts({ page: 1, pageSize: 10 })
 
-    expect(data).toEqual({
-      id: 'c7b3d8e0-5e0b-4b0f-8b3a-3b9f4b3d3b3d',
-      firstName: 'John',
-      lastName: 'Maverick',
-    })
+    // 2. 断言（验证）结果
+    expect(data).toBeDefined() // 数据不应该是空的
+    expect(data.items).toHaveLength(10) // 应该返回 10 个商品（根据 mock 数据）
+    expect(data.page).toBe(1) // 页码应该是 1
+    
+    // 验证第一条数据的结构是否符合预期
+    const firstItem = data.items[0]
+    expect(firstItem).toHaveProperty('id')
+    expect(firstItem).toHaveProperty('name')
+    expect(firstItem).toHaveProperty('price')
+  })
+
+  // 测试获取商品详情
+  it('getProductDetail should fetch single product correctly', async () => {
+    const productId = 'prod_1'
+    const data = await api.getProductDetail(productId)
+
+    expect(data).toBeDefined()
+    expect(data.id).toBe(productId)
+    expect(data.name).toContain('商品详情') // 验证 mock 返回的名字
   })
 })
