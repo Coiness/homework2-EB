@@ -48,5 +48,22 @@ export const api = {
             }),
         });
     },
+
+    updateCartItem: (uid: string, skuId: string, quantity: number) => {
+        return fetcher<Cart>(`/cart/${uid}/${skuId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ quantity }),
+        });
+    },
+
+    removeFromCart: (uid: string, skuId: string) => {
+        return fetcher<Cart>(`/cart/${uid}/${skuId}`, {
+            method: 'DELETE',
+        });
+    }
+
 }
 

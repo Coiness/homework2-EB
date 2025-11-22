@@ -103,6 +103,40 @@ export const handlers = [
       totalPrice: 199 * body.quantity,
       totalQuantity: body.quantity
     })
+  }),
+
+  // 拦截 PATCH /api/v1/cart/:uid/:skuId (更新数量)
+  http.patch('https://api.example.com/api/v1/cart/:uid/:skuId', async ({ params, request }) => {
+    const { uid, skuId } = params
+    const body = await request.json() as { quantity: number }
+    
+    // 模拟：返回更新后的购物车（假设数量已变）
+    return HttpResponse.json({
+      uid,
+      items: [
+        {
+          skuId: skuId as string,
+          quantity: body.quantity, // 数量变成了新的
+          addedAt: Date.now(),
+          product: { name: "更新后的商品", price: 199, image: "", attributes: {} }
+        }
+      ],
+      totalPrice: 199 * body.quantity,
+      totalQuantity: body.quantity
+    })
+  }),
+
+  // 拦截 DELETE /api/v1/cart/:uid/:skuId (删除商品)
+  http.delete('https://api.example.com/api/v1/cart/:uid/:skuId', ({ params }) => {
+    const { uid } = params
+    
+    // 模拟：返回空的购物车（假设删完了）
+    return HttpResponse.json({
+      uid,
+      items: [], // 列表空了
+      totalPrice: 0,
+      totalQuantity: 0
+    })
   })
 
 ]
