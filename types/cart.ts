@@ -1,4 +1,4 @@
-interface CartItem {
+export interface CartItem {
   skuId: string;       // 购物车存的是 SKU ID
   quantity: number;    // 购买数量
   addedAt: number;     // 添加时间 (用于排序)
@@ -12,7 +12,8 @@ interface CartItem {
   };
 }
 
-interface Cart {
+export interface Cart {
+  uid:string,
   items: CartItem[];
   totalPrice: number;
   totalQuantity: number;
