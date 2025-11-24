@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { ShoppingCart, Store } from "lucide-react";
-import { SearchBar } from "@/components/SearchBar";
+import { SearchBar } from "@/components/NavigationMenuComponents/SearchBar";
 // 不需要 useSearchParams 了，因为 Menu 本身不处理参数
 
 export function NavigationMenu() {
