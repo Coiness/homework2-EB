@@ -59,6 +59,13 @@ export default function ProductInfoPanel({
       skuId: selectedSku.id,
       quantity: quantity,
       addedAt: Date.now(),
+      // attach product info so client-side cart has price/image for display/totals
+      product: {
+        name: product.name,
+        image: selectedSku.image ?? product.images?.[0] ?? "",
+        price: selectedSku.price ?? product.priceRange.min,
+        attributes: selectedSku.attributes ?? {},
+      },
     };
 
     add(cartItem);
