@@ -2,6 +2,7 @@ import React from "react";
 import type { ProductDetail } from "@/types";
 import ProductPageClient from "./ProductPage.client";
 import Image from "next/image";
+import Recommendations from "./Recommendations";
 
 export interface ProductPageProps {
   product: ProductDetail;
@@ -27,26 +28,8 @@ export default function ProductPage({
         />
       </div>
 
-      {/* Recommendations — simple server-side mapping (rendered statically) */}
-      {product.recommendations?.length ? (
-        <section className="mt-10">
-          <h3 className="text-lg font-semibold mb-4">相关推荐</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {product.recommendations.map((p) => (
-              <div key={p.id} className="border rounded p-3">
-                <Image
-                  loading="lazy"
-                  src={p.image}
-                  alt={p.name}
-                  className="w-full h-32 object-cover mb-2"
-                />
-                <div className="text-sm font-medium">{p.name}</div>
-                <div className="text-xs text-gray-500">¥{p.price}</div>
-              </div>
-            ))}
-          </div>
-        </section>
-      ) : null}
+      {/* Recommendations — use a small server component for clarity and reuse */}
+      <Recommendations items={product.recommendations ?? []} />
     </div>
   );
 }
