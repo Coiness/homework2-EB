@@ -13,7 +13,9 @@ export function NavigationMenu() {
       </Link>
 
       <div className="flex-1 max-w-md mx-4">
-        <SearchBar />
+        <React.Suspense fallback={<div>加载中</div>}>
+          <SearchBar />
+        </React.Suspense>
       </div>
 
       <Link href="/cart">

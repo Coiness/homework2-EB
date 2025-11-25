@@ -9,9 +9,9 @@ import { db } from "@/lib/data";
 
 export async function GET(
   request: Request,
-  { params }: { params: { uid: string } }
+  { params }: { params: { uid: string } | Promise<{ uid: string }> }
 ) {
-  const { uid: rawUid } = params;
+  const { uid: rawUid } = await params;
   const uid = rawUid ?? "1";
   const cart = db.getCart(uid);
   return NextResponse.json(cart);
@@ -19,9 +19,9 @@ export async function GET(
 
 export async function POST(
   request: Request,
-  { params }: { params: { uid: string } }
+  { params }: { params: { uid: string } | Promise<{ uid: string }> }
 ) {
-  const { uid: rawUid } = params;
+  const { uid: rawUid } = await params;
   const uid = rawUid ?? "1";
   const body = await request.json().catch(() => ({}));
   const { skuId, quantity = 1 } = body as any;

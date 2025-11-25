@@ -7,9 +7,15 @@ import { db } from "@/lib/data";
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { uid: string; skuId: string } }
+  {
+    params,
+  }: {
+    params:
+      | { uid: string; skuId: string }
+      | Promise<{ uid: string; skuId: string }>;
+  }
 ) {
-  const { uid: rawUid, skuId } = params;
+  const { uid: rawUid, skuId } = await params;
   const uid = rawUid ?? "1";
   const body = await request.json().catch(() => ({}));
   try {
@@ -22,9 +28,15 @@ export async function PATCH(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { uid: string; skuId: string } }
+  {
+    params,
+  }: {
+    params:
+      | { uid: string; skuId: string }
+      | Promise<{ uid: string; skuId: string }>;
+  }
 ) {
-  const { uid: rawUid, skuId } = params;
+  const { uid: rawUid, skuId } = await params;
   const uid = rawUid ?? "1";
   try {
     const c = db.removeFromCart(uid, skuId);

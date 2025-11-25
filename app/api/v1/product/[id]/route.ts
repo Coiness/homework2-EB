@@ -7,9 +7,9 @@ import { db } from "@/lib/data";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } | Promise<{ id: string }> }
 ) {
-  const { id } = params;
+  const { id } = await params;
   const product = db.getProductDetail(id);
   if (!product)
     return NextResponse.json({ error: "Not Found" }, { status: 404 });

@@ -6,6 +6,7 @@ const mockProducts: ProductSimple[] = Array.from({ length: 20 }).map(
   (_, i) => ({
     id: `prod_${i + 1}`,
     name: `示例商品 ${i + 1} 号`,
+    category: "clothes",
     price: 99 + i * 10,
     sales: 100 + i,
     image: "https://placehold.co/400x400/png", // 使用占位图
