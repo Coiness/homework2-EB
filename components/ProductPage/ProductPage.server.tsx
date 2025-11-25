@@ -1,7 +1,6 @@
 import React from "react";
 import type { ProductDetail } from "@/types";
-import ProductImageGallery from "./ProductImageGallery";
-import ProductInfoPanel from "./ProductInfoPanel";
+import ProductPageClient from "./ProductPage.client";
 import Image from "next/image";
 
 export interface ProductPageProps {
@@ -21,30 +20,11 @@ export default function ProductPage({
   return (
     <div className="max-w-6xl mx-auto p-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Left: Image gallery (client) */}
-        <div>
-          <ProductImageGallery images={product.images} defaultIndex={0} />
-        </div>
-
-        {/* Right: Info panel (client) */}
-        <div>
-          <ProductInfoPanel
-            product={product}
-            initialSkuId={initialSkuId ?? null}
-            // TODO: Provide onAddToCart implementation when using this component in a page.
-            onAddToCart={async (skuId: string, quantity: number) => {
-              // TODO: implement—example options:
-              //  - call `useCartStore.addToCart('1', skuId, quantity)` (from store)
-              //  - call clientCart.addItem('1', {...}) to persist locally
-              // This placeholder intentionally does nothing so you can plug your preferred flow.
-              console.warn("onAddToCart not implemented: ", {
-                skuId,
-                quantity,
-              });
-            }}
-            // TODO: You may want to implement sku -> product price/stock resolution in the hook that uses this component.
-          />
-        </div>
+        {/* Client wrapper - keep selectedSku in client state and synchronize gallery & info panel */}
+        <ProductPageClient
+          product={product}
+          initialSkuId={initialSkuId ?? null}
+        />
       </div>
 
       {/* Recommendations — simple server-side mapping (rendered statically) */}

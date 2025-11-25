@@ -5,6 +5,7 @@ import React, { useState } from "react";
 interface Props {
   images: string[];
   defaultIndex?: number;
+  heroImage?: string | null;
 }
 
 /**
@@ -15,6 +16,7 @@ interface Props {
 export default function ProductImageGallery({
   images,
   defaultIndex = 0,
+  heroImage = null,
 }: Props) {
   const [index, setIndex] = useState(defaultIndex);
 
@@ -26,13 +28,16 @@ export default function ProductImageGallery({
     );
   }
 
+  // if heroImage exists, treat it as the main image (but keep thumbnails from images[])
+  const mainImage = heroImage ?? images[index];
+
   return (
     <div>
       <div className="w-full h-[520px] rounded overflow-hidden border bg-white flex items-center justify-center mb-4">
         {/* 主图 */}
         <Image
           loading="lazy"
-          src={images[index]}
+          src={mainImage}
           alt={`image-${index}`}
           className="max-h-full object-contain"
         />

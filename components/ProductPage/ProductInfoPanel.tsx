@@ -8,6 +8,7 @@ interface Props {
   product: ProductDetail;
   initialSkuId?: string | null;
   onAddToCart?: (skuId: string, quantity: number) => Promise<void> | void;
+  onSelectedSkuChange?: (sku: ProductSku | undefined) => void;
 }
 
 /**
@@ -18,6 +19,7 @@ export default function ProductInfoPanel({
   product,
   initialSkuId = null,
   onAddToCart,
+  onSelectedSkuChange,
 }: Props) {
   // Determine a default SKU if initialSkuId not provided
   const initialSku = useMemo<ProductSku | undefined>(() => {
@@ -27,6 +29,10 @@ export default function ProductInfoPanel({
 
   const [selectedSku, setSelectedSku] = useState<ProductSku | undefined>(
     initialSku
+  );
+  // track currently selected attribute values, initialize from initialSku attributes when available
+  const [selectedAttrs, setSelectedAttrs] = useState<Record<string, string>>(
+    () => (initialSku?.attributes as Record<string, string> | undefined) ?? {}
   );
   const [quantity, setQuantity] = useState<number>(1);
   const [note, setNote] = useState<string | null>(null);
@@ -99,16 +105,52 @@ export default function ProductInfoPanel({
                   key={v.value}
                   type="button"
                   onClick={() => {
-                    // TODO: Implement selection logic — map attribute combination to a SKU
-                    // At minimum, setSelectedSku by finding the first SKU that matches the currently chosen attributes.
-                    // For now we just show available values; the primary SKU mapping logic you can add later.
-                    if (selectedSku?.attributes.v) {
-                    }
-                    setNote(
-                      `选择了 ${attr.name}: ${v.label} （请在 TODO 里实现 SKU 匹配）`
+                    // Update selected attribute values
+                    const next = { ...selectedAttrs, [attr.key]: v.value };
+                    setSelectedAttrs(next);
+
+                    // Find matching SKU by comparing all selected attrs
+                    const matched = product.skus?.find((s) =>
+                      Object.entries(next).every(
+                        ([k, val]) => s.attributes?.[k] === val
+                      )
                     );
+
+                    if (matched) {
+                      // Found an exact SKU match — update selection, notify parent and update URL
+                      setSelectedSku(matched);
+                      try {
+                        // notify the parent client wrapper so gallery can update
+                        onSelectedSkuChange?.(matched);
+                      } catch (e) {}
+
+                      try {
+                        const newParams = new URLSearchParams(
+                          params.toString()
+                        );
+                        newParams.set("skuid", matched.id);
+                        router.replace(`${pathname}?${newParams.toString()}`);
+                      } catch (e) {}
+
+                      setNote(`选择了 ${attr.name}: ${v.label}`);
+                    } else {
+                      // No exact match for current attribute combination
+                      setSelectedSku(undefined);
+                      try {
+                        onSelectedSkuChange?.(undefined);
+                      } catch (e) {}
+                      try {
+                        const newParams = new URLSearchParams(
+                          params.toString()
+                        );
+                        newParams.delete("skuid");
+                        router.replace(`${pathname}?${newParams.toString()}`);
+                      } catch (e) {}
+
+                      setNote(`没有对应的 SKU，请尝试其他选择`);
+                    }
                   }}
-                  className="px-3 py-1 border rounded text-sm"
+                  className={`px-3 py-1 border rounded text-sm ${selectedAttrs[attr.key] === v.value ? "bg-indigo-600 text-white" : ""}`}
                 >
                   {v.label}
                 </button>

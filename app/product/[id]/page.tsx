@@ -17,8 +17,10 @@ export async function generateMetadata({
 
 export default async function Page({
   params,
+  searchParams,
 }: {
   params: { id: string } | Promise<{ id: string }>;
+  searchParams?: { skuid?: string };
 }) {
   const { id } = await params;
 
@@ -28,5 +30,6 @@ export default async function Page({
 
   // We render a server wrapper component which passes data to client subcomponents.
   // TODO: Decide if you want to support an initial `skuid` from search params — currently omitted.
-  return <ProductPage product={product} initialSkuId={null} />;
+  const initialSkuId = (searchParams?.skuid as string | undefined) ?? null;
+  return <ProductPage product={product} initialSkuId={initialSkuId} />;
 }
