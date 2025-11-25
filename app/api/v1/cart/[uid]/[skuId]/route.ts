@@ -9,7 +9,8 @@ export async function PATCH(
   request: Request,
   { params }: { params: { uid: string; skuId: string } }
 ) {
-  const { uid, skuId } = params;
+  const { uid: rawUid, skuId } = params;
+  const uid = rawUid ?? "1";
   const body = await request.json().catch(() => ({}));
   try {
     const c = db.updateCartItem(uid, skuId, Number(body.quantity ?? 0));
@@ -23,7 +24,8 @@ export async function DELETE(
   request: Request,
   { params }: { params: { uid: string; skuId: string } }
 ) {
-  const { uid, skuId } = params;
+  const { uid: rawUid, skuId } = params;
+  const uid = rawUid ?? "1";
   try {
     const c = db.removeFromCart(uid, skuId);
     return NextResponse.json(c);

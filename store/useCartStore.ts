@@ -8,14 +8,15 @@ interface CartState {
   isLoading: boolean;
   error: string | null;
 
-  fetchCart: (uid: string) => Promise<void>;
-  addToCart: (uid: string, skuId: string, quantity: number) => Promise<void>;
+  // uid is optional and defaults to "1" to keep client simple
+  fetchCart: (uid?: string) => Promise<void>;
+  addToCart: (uid?: string, skuId?: string, quantity?: number) => Promise<void>;
   updateQuantity: (
-    uid: string,
-    skuId: string,
-    quantity: number
+    uid?: string,
+    skuId?: string,
+    quantity?: number
   ) => Promise<void>;
-  removeItem: (uid: string, skuId: string) => Promise<void>;
+  removeItem: (uid?: string, skuId?: string) => Promise<void>;
 }
 
 export const useCartStore = create<CartState>((set, get) => {
@@ -39,7 +40,7 @@ export const useCartStore = create<CartState>((set, get) => {
     isLoading: false,
     error: null,
 
-    fetchCart: async (uid: string) => {
+    fetchCart: async (uid: string = "1") => {
       set({ isLoading: true, error: null });
       try {
         const data = await api.getCart(uid);
@@ -49,7 +50,11 @@ export const useCartStore = create<CartState>((set, get) => {
       }
     },
 
-    addToCart: async (uid: string, skuId: string, quantity: number) => {
+    addToCart: async (
+      uid: string = "1",
+      skuId: string = "",
+      quantity: number = 1
+    ) => {
       set({ isLoading: true, error: null });
       try {
         const newCart = await api.addToCart(uid, skuId, quantity);
@@ -59,7 +64,11 @@ export const useCartStore = create<CartState>((set, get) => {
       }
     },
 
-    updateQuantity: async (uid: string, skuId: string, quantity: number) => {
+    updateQuantity: async (
+      uid: string = "1",
+      skuId: string = "",
+      quantity: number = 0
+    ) => {
       // A. 乐观更新 (Optimistic Update)
       // 这一步是为了让用户点击 + 号时，数字立马变，不需要等网络
       const currentCart = get().cart;
@@ -79,7 +88,7 @@ export const useCartStore = create<CartState>((set, get) => {
       debouncedSync(uid, skuId, quantity);
     },
 
-    removeItem: async (uid: string, skuId: string) => {
+    removeItem: async (uid: string = "1", skuId: string = "") => {
       const previousCart = get().cart;
       if (!previousCart) return;
       const targetItem = previousCart.items.find(

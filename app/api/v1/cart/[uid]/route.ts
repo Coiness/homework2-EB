@@ -11,7 +11,8 @@ export async function GET(
   request: Request,
   { params }: { params: { uid: string } }
 ) {
-  const { uid } = params;
+  const { uid: rawUid } = params;
+  const uid = rawUid ?? "1";
   const cart = db.getCart(uid);
   return NextResponse.json(cart);
 }
@@ -20,7 +21,8 @@ export async function POST(
   request: Request,
   { params }: { params: { uid: string } }
 ) {
-  const { uid } = params;
+  const { uid: rawUid } = params;
+  const uid = rawUid ?? "1";
   const body = await request.json().catch(() => ({}));
   const { skuId, quantity = 1 } = body as any;
   if (!skuId)

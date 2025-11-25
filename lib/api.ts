@@ -74,37 +74,47 @@ export const api = {
   },
 
   // 获取购物车
-  getCart: (uid: string) => {
-    return fetcher<Cart>(`/cart/${uid}`);
+  // uid is optional now — default to "1" to keep things simple for this project
+  getCart: (uid?: string) => {
+    const _uid = uid ?? "1";
+    return fetcher<Cart>(`/cart/${_uid}`);
   },
 
   // 将物品加入购物车
-  addToCart: (uid: string, skuId: string, quantity: number) => {
-    return fetcher<Cart>(`/cart/${uid}`, {
+  addToCart: (uid?: string, skuId?: string, quantity?: number) => {
+    const _uid = uid ?? "1";
+    const _sku = skuId ?? "";
+    const _quantity = Number(quantity ?? 1);
+    return fetcher<Cart>(`/cart/${_uid}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        skuId,
-        quantity,
+        skuId: _sku,
+        quantity: _quantity,
         addedAt: Date.now(),
       }),
     });
   },
 
-  updateCartItem: (uid: string, skuId: string, quantity: number) => {
-    return fetcher<Cart>(`/cart/${uid}/${skuId}`, {
+  updateCartItem: (uid?: string, skuId?: string, quantity?: number) => {
+    const _uid = uid ?? "1";
+    const _sku = skuId ?? "";
+    const _quantity = Number(quantity ?? 0);
+    return fetcher<Cart>(`/cart/${_uid}/${_sku}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ quantity }),
+      body: JSON.stringify({ quantity: _quantity }),
     });
   },
 
-  removeFromCart: (uid: string, skuId: string) => {
-    return fetcher<Cart>(`/cart/${uid}/${skuId}`, {
+  removeFromCart: (uid?: string, skuId?: string) => {
+    const _uid = uid ?? "1";
+    const _sku = skuId ?? "";
+    return fetcher<Cart>(`/cart/${_uid}/${_sku}`, {
       method: "DELETE",
     });
   },
