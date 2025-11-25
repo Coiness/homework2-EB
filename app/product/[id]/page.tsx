@@ -20,7 +20,8 @@ export default async function Page({
   searchParams,
 }: {
   params: { id: string } | Promise<{ id: string }>;
-  searchParams?: { skuid?: string };
+  // searchParams can be an object or a Promise resolving to the object
+  searchParams?: { skuid?: string } | Promise<{ skuid?: string }>;
 }) {
   const { id } = await params;
 
@@ -30,6 +31,9 @@ export default async function Page({
 
   // We render a server wrapper component which passes data to client subcomponents.
   // TODO: Decide if you want to support an initial `skuid` from search params — currently omitted.
-  const initialSkuId = (searchParams?.skuid as string | undefined) ?? null;
+  // resolve searchParams if it's a Promise (app router may pass a Promise in some runtimes)
+  const resolvedSearchParams = await (searchParams as any);
+  const initialSkuId =
+    (resolvedSearchParams?.skuid as string | undefined) ?? null;
   return <ProductPage product={product} initialSkuId={initialSkuId} />;
 }

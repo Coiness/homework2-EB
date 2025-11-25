@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import type { ProductSimple } from "@/types/product";
 import React from "react";
+import Link from "next/link";
 
 interface ProductCardProps {
   product: ProductSimple;
@@ -52,12 +53,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       </div>
 
       <div className={layout === "grid" ? "mt-3" : "flex-1"}>
-        <h3
-          className="font-semibold text-sm leading-snug"
-          onClick={() => onClick?.(product.id)}
-        >
-          {product.name}
-        </h3>
+        {onClick ? (
+          <h3
+            className="font-semibold text-sm leading-snug cursor-pointer"
+            onClick={() => onClick?.(product.id)}
+          >
+            {product.name}
+          </h3>
+        ) : (
+          // If no onClick callback provided, fall back to a normal Link navigation
+          <h3 className="font-semibold text-sm leading-snug">
+            <Link href={`/product/${product.id}`}>{product.name}</Link>
+          </h3>
+        )}
         <div className="text-sm text-muted-foreground mt-1">
           销量 {product.sales}
         </div>
@@ -67,9 +75,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
         <div className="mt-3 flex items-center gap-2">
           {/**我把加入购物车删了，因为这点要在详细页实现，传入的是skuId而不是普通的产品id */}
-          <Button size="sm" onClick={() => onClick?.(product.id)}>
-            查看
-          </Button>
+          {onClick ? (
+            <Button size="sm" onClick={() => onClick?.(product.id)}>
+              查看
+            </Button>
+          ) : (
+            <Link href={`/product/${product.id}`} className="inline-block">
+              <Button size="sm">查看</Button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

@@ -1,5 +1,8 @@
 "use client";
 import Image from "next/image";
+// Use next/image with `fill` for the main image (better optimization).
+// Parent container must be position:relative and have explicit height so fill doesn't
+// expand to the viewport. Thumbnails use Image with fixed width/height.
 import React, { useState } from "react";
 
 interface Props {
@@ -33,13 +36,15 @@ export default function ProductImageGallery({
 
   return (
     <div>
-      <div className="w-full h-[520px] rounded overflow-hidden border bg-white flex items-center justify-center mb-4">
-        {/* 主图 */}
+      <div className="w-full h-[520px] rounded overflow-hidden border bg-white mb-4 relative">
+        {/* 主图 - 使用普通 img 保持简单并避免必须提供 width/height */}
         <Image
-          loading="lazy"
           src={mainImage}
           alt={`image-${index}`}
-          className="max-h-full object-contain"
+          fill
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          style={{ objectFit: "contain" }}
+          priority={false}
         />
       </div>
 
@@ -53,10 +58,12 @@ export default function ProductImageGallery({
             aria-label={`show-image-${i}`}
           >
             <Image
-              loading="lazy"
               src={src}
               alt={`thumb-${i}`}
-              className="w-20 h-20 object-cover"
+              width={80}
+              height={80}
+              className="rounded object-cover"
+              loading="lazy"
             />
           </button>
         ))}

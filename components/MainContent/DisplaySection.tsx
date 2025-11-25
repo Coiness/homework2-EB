@@ -88,15 +88,13 @@ export const DisplaySection: React.FC<DisplaySectionProps> = ({
         onProductClick={onProductClick}
       />
 
-      {totalPages > 1 && (
-        <div className="mt-6">
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={onPageChange}
-          />
-        </div>
-      )}
+      <div className="mt-6">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={onPageChange}
+        />
+      </div>
     </div>
   );
 };
