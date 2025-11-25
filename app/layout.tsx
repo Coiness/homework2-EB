@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import React from "react";
+import { NavigationMenu } from "@/components/NavigationMenuComponents/NavigationMenu";
 
 export const metadata: Metadata = {
   title: "Next.js App",
@@ -13,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <NavigationMenu />
+        {children}
+      </body>
     </html>
   );
 }
