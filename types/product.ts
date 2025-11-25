@@ -2,6 +2,7 @@
 export interface ProductSimple {
   id: string; // 商品ID (SPU ID)
   name: string; // 商品名称
+  category: string;
   price: number; // 显示价格（最低价）
   sales: number; // 销量
   image: string; // 封面图 URL (e.g., "https://cdn.example.com/t-shirt.jpg")
@@ -27,6 +28,7 @@ export interface ProductDetail {
   id: string; // SPU ID
   name: string; // 商品名称
   description: string; // 商品描述
+  category: string;
   priceRange: {
     // 价格区间
     min: number;

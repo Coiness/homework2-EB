@@ -1,10 +1,8 @@
-"use server";
 import { FilterSection } from "@/components/FilterComponents/FilterSection";
 import { ToolbarClient } from "@/components/MainContent/ToolbarClient";
 import { DisplaySection, Toolbar } from "@/components/MainContent";
 import { api } from "@/lib/api";
 import type { ProductFilter } from "@/types";
-import { useParams } from "next/navigation";
 
 // Server Component: 解析 URL 参数 -> 转换为 ProductFilter -> 请求数据 -> 渲染
 // 学习点（提问）：
@@ -16,7 +14,11 @@ export default async function ProductsPage({
   searchParams,
 }: {
   // Next.js App Router 会把搜索参数按键值传入这个 prop
-  searchParams: Record<string, string | string[] | undefined>;
+  // NOTE: in Next 16/Turbopack the `searchParams` may be passed as a Promise
+  // so we accept either the resolved object or a Promise that resolves to it.
+  searchParams:
+    | Record<string, string | string[] | undefined>
+    | Promise<Record<string, string | string[] | undefined>>;
 }) {
   // Helper: 把 searchParams 解析为后端期望的字段
   function parseFilters(
@@ -62,7 +64,9 @@ export default async function ProductsPage({
     return filter;
   }
 
-  const filter = parseFilters(searchParams);
+  // `searchParams` can be a Promise in the new app router — unwrap it before use
+  const resolvedSearchParams = await searchParams;
+  const filter = parseFilters(resolvedSearchParams);
 
   // 在 Server 环境直接调用 api.getProducts（我们的 api.fetcher 使用 fetch，MSW 在测试/开发中会拦截）
   const data = await api.getProducts(filter);
