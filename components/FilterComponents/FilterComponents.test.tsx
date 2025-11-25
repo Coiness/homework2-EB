@@ -14,7 +14,7 @@ vi.mock("next/navigation", () => ({
 
 import { CheckboxFilter } from "./CheckoutboxFilter";
 import { CategoryFilter } from "./CategoryFilter";
-import { PriceRangeFilter } from "./priceRangeFilter";
+import { PriceRangeFilter } from "./PriceRangeFilter";
 
 describe("Filter Components", () => {
   beforeEach(() => {

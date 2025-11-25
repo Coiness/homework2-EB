@@ -1,5 +1,5 @@
 import { CategoryFilter } from "./CategoryFilter";
-import { PriceRangeFilter } from "./priceRangeFilter";
+import { PriceRangeFilter } from "./PriceRangeFilter";
 import { CheckboxFilter } from "./CheckoutboxFilter";
 
 const CATEGORIES = [
