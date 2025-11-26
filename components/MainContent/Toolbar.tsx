@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 export interface ToolbarProps {
   currentSort?: string;
@@ -63,6 +62,11 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           variant={currentLayout === "grid" ? "default" : "ghost"}
           size="sm"
           onClick={() => onLayoutChange?.("grid")}
+          className={
+            currentLayout !== "grid"
+              ? "border border-black "
+              : "border border-black bg-amber-100"
+          }
         >
           Grid
         </Button>
@@ -70,6 +74,11 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           variant={currentLayout === "list" ? "default" : "ghost"}
           size="sm"
           onClick={() => onLayoutChange?.("list")}
+          className={
+            currentLayout !== "list"
+              ? "border border-black "
+              : "border border-black bg-amber-100"
+          }
         >
           List
         </Button>

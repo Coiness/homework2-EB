@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import type { ProductSimple } from "@/types/product";
 import React from "react";
+import Link from "next/link";
 
 interface ProductCardProps {
   product: ProductSimple;
@@ -31,14 +32,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   return (
     <div
-      className={`border rounded-md overflow-hidden bg-white shadow-sm hover:shadow-md transition ${layout === "grid" ? "p-3" : "p-4 flex gap-4 items-center"}`}
+      className={`border rounded-md overflow-hidden bg-white shadow-sm hover:shadow-md transition ${layout === "grid" ? "p-3 flex flex-col h-full" : "p-4 flex gap-4 items-center"}`}
       role="article"
     >
       {/* 图片部分 */}
       <div
         className={
           layout === "grid"
-            ? "h-48 w-full relative"
+            ? "h-44 w-full relative rounded-md overflow-hidden bg-gray-50 shrink-0"
             : "w-28 h-28 relative shrink-0"
         }
       >
@@ -51,25 +52,38 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         />
       </div>
 
-      <div className={layout === "grid" ? "mt-3" : "flex-1"}>
-        <h3
-          className="font-semibold text-sm leading-snug"
-          onClick={() => onClick?.(product.id)}
-        >
-          {product.name}
-        </h3>
-        <div className="text-sm text-muted-foreground mt-1">
-          销量 {product.sales}
-        </div>
+      <div
+        className={layout === "grid" ? "mt-3 flex-1 flex flex-col" : "flex-1"}
+      >
+        {onClick ? (
+          <h3
+            className="font-semibold text-sm leading-snug cursor-pointer"
+            onClick={() => onClick?.(product.id)}
+          >
+            {product.name}
+          </h3>
+        ) : (
+          // If no onClick callback provided, fall back to a normal Link navigation
+          <h3 className="font-semibold text-sm leading-snug">
+            <Link href={`/product/${product.id}`}>{product.name}</Link>
+          </h3>
+        )}
+        <div className="text-sm text-gray-500 mt-1">销量 {product.sales}</div>
         <div className="text-lg font-bold text-amber-600 mt-2">
           ¥{product.price.toFixed(2)}
         </div>
 
-        <div className="mt-3 flex items-center gap-2">
+        <div className="flex items-center gap-2 mt-auto">
           {/**我把加入购物车删了，因为这点要在详细页实现，传入的是skuId而不是普通的产品id */}
-          <Button size="sm" onClick={() => onClick?.(product.id)}>
-            查看
-          </Button>
+          {onClick ? (
+            <Button size="sm" onClick={() => onClick?.(product.id)}>
+              查看
+            </Button>
+          ) : (
+            <Link href={`/product/${product.id}`} className="inline-block">
+              <Button size="sm">查看</Button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

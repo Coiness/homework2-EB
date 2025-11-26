@@ -2,6 +2,7 @@ import { FilterSection } from "@/components/FilterComponents/FilterSection";
 import { ToolbarClient } from "@/components/MainContent/ToolbarClient";
 import { DisplaySection, Toolbar } from "@/components/MainContent";
 import { api } from "@/lib/api";
+import ProductsClient from "@/components/MainContent/ProductsClient";
 import type { ProductFilter } from "@/types";
 
 // Server Component: 解析 URL 参数 -> 转换为 ProductFilter -> 请求数据 -> 渲染
@@ -25,7 +26,7 @@ export default async function ProductsPage({
     params: Record<string, string | string[] | undefined>
   ): ProductFilter {
     const page = Number(params.page ?? "1") || 1;
-    const pageSize = Number(params.pageSize ?? "12") || 12;
+    const pageSize = Number(params.pageSize ?? "9") || 9;
 
     const query = typeof params.query === "string" ? params.query : undefined;
     const category =
@@ -67,6 +68,11 @@ export default async function ProductsPage({
   // `searchParams` can be a Promise in the new app router — unwrap it before use
   const resolvedSearchParams = await searchParams;
   const filter = parseFilters(resolvedSearchParams);
+  // read layout param (grid|list) so server can render initial layout
+  const layoutParam =
+    typeof resolvedSearchParams.layout === "string"
+      ? (resolvedSearchParams.layout as "grid" | "list")
+      : (undefined as undefined | "grid" | "list");
 
   // 在 Server 环境直接调用 api.getProducts（我们的 api.fetcher 使用 fetch，MSW 在测试/开发中会拦截）
   const data = await api.getProducts(filter);
@@ -78,17 +84,16 @@ export default async function ProductsPage({
     <div className="flex gap-6 p-6">
       <FilterSection />
       <div className="flex-1">
-        {/* ToolbarClient 在客户端读取 search params 并直接写入 url (router.push) */}
-        <ToolbarClient
-          productCount={data.total}
-          defaultSort={filter.sort ?? "default"}
-        />
-        {/* DisplaySection 由 server 提供数据渲染 */}
-        <DisplaySection
+        {/* ToolbarClient was moved into client wrapper so layout is client-only. */}
+        {/* DisplaySection 由 client wrapper 控制交互（导航 / 分页） */}
+        <ProductsClient
           products={products}
+          layout={layoutParam ?? "grid"}
           currentPage={data.page}
           totalPages={totalPages}
-          // 额外：可以把 onAddToCart / onProductClick 通过 props 传入（client-side）
+          productCount={data.total}
+          pageSize={data.pageSize}
+          defaultSort={filter.sort ?? "default"}
         />
       </div>
     </div>

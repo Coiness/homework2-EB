@@ -17,6 +17,12 @@ export function ToolbarClient(
   const currentSort =
     searchParams.get("sort") ?? props.defaultSort ?? "default";
 
+  // layout: read from URL param `layout`, default to grid
+  const currentLayout =
+    (searchParams.get("layout") as "grid" | "list" | null) ??
+    props.currentLayout ??
+    "grid";
+
   const onSortChange = (sort: string) => {
     // 修改 URL 参数，并保持其它参数不变
     const params = new URLSearchParams(searchParams.toString());
@@ -30,7 +36,23 @@ export function ToolbarClient(
     router.push(q ? `${pathname}?${q}` : pathname);
   };
 
+  const onLayoutChange = (layout: "grid" | "list") => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (layout && layout !== "grid") params.set("layout", layout);
+    else params.delete("layout");
+
+    const q = params.toString();
+    // replace layout in url but keep other query string
+    router.push(q ? `${pathname}?${q}` : pathname);
+  };
+
   return (
-    <Toolbar {...props} currentSort={currentSort} onSortChange={onSortChange} />
+    <Toolbar
+      {...props}
+      currentSort={currentSort}
+      currentLayout={currentLayout}
+      onSortChange={onSortChange}
+      onLayoutChange={onLayoutChange}
+    />
   );
 }
