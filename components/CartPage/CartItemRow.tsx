@@ -15,7 +15,7 @@ export default function CartItemRow({ item, onUpdate, onRemove }: Props) {
   const price = item.product?.price ?? 0;
 
   return (
-    <div className="flex items-center gap-4 py-4">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 py-4">
       <div className="w-20 h-20 relative shrink-0">
         <Image src={img} alt={name} fill style={{ objectFit: "cover" }} />
       </div>
@@ -25,7 +25,7 @@ export default function CartItemRow({ item, onUpdate, onRemove }: Props) {
         <div className="text-xs text-gray-500 mt-1">SKU: {item.skuId}</div>
       </div>
 
-      <div className="w-40 flex flex-col items-end gap-2">
+      <div className="w-full sm:w-40 flex flex-col sm:items-end gap-2">
         <div className="text-sm font-semibold text-gray-900">
           ¥{(price * item.quantity).toFixed(2)}
         </div>
@@ -45,6 +45,9 @@ export default function CartItemRow({ item, onUpdate, onRemove }: Props) {
           >
             +
           </button>
+        </div>
+
+        <div className="mt-2 sm:mt-0">
           <button
             className="px-3 py-1 text-sm text-red-600 hover:underline"
             onClick={() => onRemove(item.skuId)}

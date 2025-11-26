@@ -104,6 +104,7 @@ const products: ProductDetail[] = [
     category: "clothes",
     priceRange: { min: 49, max: 99 },
     sales: 1200,
+    tags: ["hot"],
     images: [
       "https://placehold.co/600x600/png?text=红色T-shirt图片1",
       "https://placehold.co/600x600/png?text=红色T-shirt图片2",
@@ -194,6 +195,7 @@ const products: ProductDetail[] = [
     category: "clothes",
     priceRange: { min: 129, max: 169 },
     sales: 800,
+    tags: ["hot"],
     images: ["https://placehold.co/600x600/png?text=Jeans+Blue"],
     attributes: [
       {
@@ -225,7 +227,7 @@ const products: ProductDetail[] = [
         price: 49,
         sales: 1200,
         image: "https://placehold.co/400x400/png?text=Red+T-shirt",
-        tags: ["热销"],
+        tags: ["hot"],
       },
       {
         id: "p4",
@@ -234,7 +236,7 @@ const products: ProductDetail[] = [
         price: 39,
         sales: 450,
         image: "https://placehold.co/400x400/png?text=Bottle+Black",
-        tags: ["热销"],
+        tags: ["hot"],
       },
       {
         id: "p6",
@@ -255,6 +257,7 @@ const products: ProductDetail[] = [
     category: "shoes",
     priceRange: { min: 179, max: 249 },
     sales: 320,
+    tags: ["new"],
     images: ["https://placehold.co/600x600/png?text=Sneakers+White"],
     attributes: [
       {
@@ -291,7 +294,7 @@ const products: ProductDetail[] = [
       {
         id: "p5",
         name: "轻量跑鞋 - 黑色",
-        category: "shoes",
+        category: "clothes",
         price: 219,
         sales: 210,
         image: "https://placehold.co/400x400/png?text=Running+Black",
@@ -316,6 +319,7 @@ const products: ProductDetail[] = [
     category: "home",
     priceRange: { min: 29, max: 59 },
     sales: 450,
+    tags: ["hot"],
     images: ["https://placehold.co/600x600/png?text=Bottle+Black"],
     attributes: [],
     skus: [
@@ -349,6 +353,7 @@ const products: ProductDetail[] = [
     category: "shoes",
     priceRange: { min: 199, max: 249 },
     sales: 210,
+    tags: ["new"],
     images: ["https://placehold.co/600x600/png?text=Running+Black"],
     attributes: [
       {
@@ -401,6 +406,7 @@ const products: ProductDetail[] = [
     category: "bags",
     priceRange: { min: 239, max: 349 },
     sales: 140,
+    tags: ["热门"],
     images: ["https://placehold.co/600x600/png?text=Backpack+Kaki"],
     attributes: [],
     skus: [
@@ -442,6 +448,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -461,9 +468,10 @@ const products: ProductDetail[] = [
     id: "p101",
     name: "凑数商品",
     description: "没有意义的商品，仅仅只是为了凑数而存在",
-    category: "",
+    category: "electronics",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -486,6 +494,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -508,6 +517,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -530,6 +540,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -552,6 +563,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -574,6 +586,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -596,6 +609,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -618,6 +632,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -640,6 +655,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -662,6 +678,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -684,6 +701,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -706,6 +724,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -728,6 +747,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -750,6 +770,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -772,6 +793,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -794,6 +816,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -816,6 +839,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -838,6 +862,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -860,6 +885,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -882,6 +908,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -904,6 +931,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -926,6 +954,7 @@ const products: ProductDetail[] = [
     category: "",
     priceRange: { min: 0, max: 10 },
     sales: 0,
+    tags: [],
     images: ["https://placehold.co/400x400/png?text=Nothing"],
     attributes: [],
     skus: [
@@ -948,6 +977,7 @@ const products: ProductDetail[] = [
     category: "test",
     priceRange: { min: 10, max: 20 },
     sales: 5,
+    tags: ["测试"],
     images: ["https://placehold.co/400x400/png?text=Test7"],
     attributes: [],
     skus: [
@@ -970,6 +1000,7 @@ const products: ProductDetail[] = [
     category: "test",
     priceRange: { min: 15, max: 25 },
     sales: 3,
+    tags: ["测试"],
     images: ["https://placehold.co/400x400/png?text=Test8"],
     attributes: [],
     skus: [
@@ -992,6 +1023,7 @@ const products: ProductDetail[] = [
     category: "test",
     priceRange: { min: 20, max: 30 },
     sales: 7,
+    tags: ["测试"],
     images: ["https://placehold.co/400x400/png?text=Test9"],
     attributes: [],
     skus: [
@@ -1014,6 +1046,7 @@ const products: ProductDetail[] = [
     category: "test",
     priceRange: { min: 25, max: 35 },
     sales: 2,
+    tags: ["测试"],
     images: ["https://placehold.co/400x400/png?text=Test10"],
     attributes: [],
     skus: [
@@ -1036,6 +1069,7 @@ const products: ProductDetail[] = [
     category: "test",
     priceRange: { min: 30, max: 40 },
     sales: 9,
+    tags: ["测试"],
     images: ["https://placehold.co/400x400/png?text=Test11"],
     attributes: [],
     skus: [
@@ -1058,6 +1092,7 @@ const products: ProductDetail[] = [
     category: "test",
     priceRange: { min: 35, max: 45 },
     sales: 4,
+    tags: ["测试"],
     images: ["https://placehold.co/400x400/png?text=Test12"],
     attributes: [],
     skus: [
@@ -1080,6 +1115,7 @@ const products: ProductDetail[] = [
     category: "test",
     priceRange: { min: 40, max: 50 },
     sales: 6,
+    tags: ["测试"],
     images: ["https://placehold.co/400x400/png?text=Test13"],
     attributes: [],
     skus: [
@@ -1107,7 +1143,7 @@ function toSimple(p: ProductDetail): ProductSimple {
     price: p.priceRange.min,
     sales: p.sales,
     image: p.images[0] ?? "",
-    tags: [],
+    tags: p.tags ?? [],
   };
 }
 

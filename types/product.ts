@@ -36,6 +36,7 @@ export interface ProductDetail {
   };
   sales: number; // 总销量
   images: string[]; // 主图轮播列表 URLs
+  tags: string[]; // 商品标签（用于筛选）
 
   // 动态属性定义 (用于渲染选择器)
   attributes: {

@@ -42,7 +42,7 @@ export default function CartPageClient() {
           </div>
 
           <div className="bg-white border rounded p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6">
               <div className="text-sm text-gray-600">
                 总数：{totalQuantity} 件
               </div>
@@ -50,11 +50,11 @@ export default function CartPageClient() {
                 合计：¥{totalPrice.toFixed(2)}
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <button className="px-4 py-2 border rounded text-sm">
+            <div className="flex w-full sm:w-auto items-center gap-3 flex-col sm:flex-row">
+              <button className="w-full sm:w-auto px-4 py-2 border rounded text-sm">
                 继续购物
               </button>
-              <button className="px-4 py-2 bg-indigo-600 text-white rounded-md shadow hover:bg-indigo-700 transition-colors">
+              <button className="w-full sm:w-auto px-4 py-2 bg-indigo-600 text-white rounded-md shadow hover:bg-indigo-700 transition-colors">
                 去结算
               </button>
             </div>

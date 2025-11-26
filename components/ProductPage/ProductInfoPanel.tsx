@@ -168,7 +168,7 @@ export default function ProductInfoPanel({
                         router.replace(`${pathname}?${newParams.toString()}`);
                       } catch (e) {}
 
-                      setNote(`没有对应的 SKU，请尝试其他选择`);
+                      setNote(`对应的商品已经卖光了，请试试其他选择`);
                     }
                   }}
                   className={`px-3 py-1 border rounded-md text-sm transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300 ${selectedAttrs[attr.key] === v.value ? "bg-indigo-600 text-white border-indigo-600" : "bg-white text-gray-700 hover:bg-gray-50"}`}

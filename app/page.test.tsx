@@ -5,13 +5,14 @@ import Home from "./page";
 describe("Home Page", () => {
   it("renders welcome message", () => {
     render(<Home />);
-    expect(screen.getByText("Welcome to Next.js")).toBeInTheDocument();
+    // The homepage was localized. Check title that now exists
+    expect(screen.getByText("homework2-EB")).toBeInTheDocument();
   });
 
   it("increments counter", () => {
     render(<Home />);
-    const incrementButton = screen.getByText("Increment");
-    const counterValue = screen.getByText("0"); // Assuming initial state is 0
+    const incrementButton = screen.getByText("+");
+    const counterValue = screen.getByText("0"); // initial state is 0
 
     expect(counterValue).toBeInTheDocument();
 
