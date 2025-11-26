@@ -14,9 +14,11 @@ interface DisplaySectionProps {
   error?: string | null;
   currentPage?: number;
   totalPages?: number;
+  pageSize?: number;
   onPageChange?: (page: number) => void;
   onAddToCart?: (skuId: string) => void;
   onProductClick?: (id: string) => void;
+  onPageSizeChange?: (pageSize: number) => void;
 }
 
 /**
@@ -32,9 +34,11 @@ export const DisplaySection: React.FC<DisplaySectionProps> = ({
   error = null,
   currentPage = 1,
   totalPages = 1,
+  pageSize = 12,
   onPageChange,
   onAddToCart,
   onProductClick,
+  onPageSizeChange,
 }) => {
   if (isLoading) {
     return (
@@ -93,6 +97,8 @@ export const DisplaySection: React.FC<DisplaySectionProps> = ({
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={onPageChange}
+          onPageSizeChange={onPageSizeChange}
+          pageSize={pageSize}
         />
       </div>
     </div>

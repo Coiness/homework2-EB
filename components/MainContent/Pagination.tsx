@@ -26,7 +26,7 @@ interface PaginationProps {
 export const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
-  pageSize = 12,
+  pageSize,
   onPageChange,
   onPageSizeChange,
 }) => {
@@ -64,9 +64,9 @@ export const Pagination: React.FC<PaginationProps> = ({
           onChange={(e) => onPageSizeChange?.(Number(e.target.value))}
           className="rounded border px-2 py-1 text-sm"
         >
+          <option value={6}>6</option>
+          <option value={9}>9</option>
           <option value={12}>12</option>
-          <option value={24}>24</option>
-          <option value={48}>48</option>
         </select>
       </div>
     </div>

@@ -26,7 +26,7 @@ export default async function ProductsPage({
     params: Record<string, string | string[] | undefined>
   ): ProductFilter {
     const page = Number(params.page ?? "1") || 1;
-    const pageSize = Number(params.pageSize ?? "12") || 12;
+    const pageSize = Number(params.pageSize ?? "9") || 9;
 
     const query = typeof params.query === "string" ? params.query : undefined;
     const category =
@@ -92,6 +92,7 @@ export default async function ProductsPage({
           currentPage={data.page}
           totalPages={totalPages}
           productCount={data.total}
+          pageSize={data.pageSize}
           defaultSort={filter.sort ?? "default"}
         />
       </div>

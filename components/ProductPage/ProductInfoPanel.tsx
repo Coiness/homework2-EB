@@ -88,17 +88,31 @@ export default function ProductInfoPanel({
   }
 
   return (
-    <div className="space-y-4 p-4">
-      <div className="text-2xl font-semibold">{product.name}</div>
-      <div className="text-sm text-gray-500">{product.description}</div>
+    <div className="space-y-4 p-4 md:p-6 bg-white rounded-lg shadow-sm">
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
+        <div>
+          <div className="text-2xl font-semibold text-gray-800">
+            {product.name}
+          </div>
+          <div className="text-sm text-gray-500 mt-1">
+            {product.description}
+          </div>
+        </div>
+        <div className="mt-2 md:mt-0 text-right">
+          <div className="text-sm text-gray-500">销量 {product.sales}</div>
+        </div>
+      </div>
 
-      <div className="mt-4 border-t pt-4">
-        <div className="text-xl text-rose-600 font-bold">
-          ¥{selectedSku?.price ?? product.priceRange.min}
+      <div className="mt-4 border-t pt-4 flex items-center justify-between gap-4">
+        <div>
+          <div className="text-2xl md:text-3xl text-rose-600 font-extrabold">
+            ¥{selectedSku?.price ?? product.priceRange.min}
+          </div>
+          <div className="text-xs text-gray-500 mt-1">
+            库存: {selectedSku?.stock ?? "N/A"}
+          </div>
         </div>
-        <div className="text-xs text-gray-500">
-          库存: {selectedSku?.stock ?? "N/A"}
-        </div>
+        <div className="text-sm text-gray-600">{product.category}</div>
       </div>
 
       {/* 属性选择区 */}
@@ -157,7 +171,7 @@ export default function ProductInfoPanel({
                       setNote(`没有对应的 SKU，请尝试其他选择`);
                     }
                   }}
-                  className={`px-3 py-1 border rounded text-sm ${selectedAttrs[attr.key] === v.value ? "bg-indigo-600 text-white" : ""}`}
+                  className={`px-3 py-1 border rounded-md text-sm transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300 ${selectedAttrs[attr.key] === v.value ? "bg-indigo-600 text-white border-indigo-600" : "bg-white text-gray-700 hover:bg-gray-50"}`}
                 >
                   {v.label}
                 </button>
@@ -168,7 +182,7 @@ export default function ProductInfoPanel({
       </div>
 
       {/* 数量 + 加入购物车 */}
-      <div className="flex items-center gap-3 mt-4">
+      <div className="flex items-center gap-3 mt-4 flex-wrap">
         <div className="flex items-center border rounded overflow-hidden">
           <button
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -189,7 +203,7 @@ export default function ProductInfoPanel({
 
         <button
           onClick={handleAddToCart}
-          className="px-4 py-2 bg-indigo-600 text-white rounded"
+          className="px-5 py-2 bg-indigo-600 text-white rounded-md md:rounded-lg shadow-sm hover:bg-indigo-700 transition-colors w-full md:w-auto text-center"
         >
           加入购物车
         </button>

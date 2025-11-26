@@ -25,7 +25,7 @@ export default function ProductImageGallery({
 
   if (!images || images.length === 0) {
     return (
-      <div className="bg-gray-100 w-full h-96 flex items-center justify-center">
+      <div className="bg-gray-100 w-full h-64 md:h-96 flex items-center justify-center rounded-md">
         无图片
       </div>
     );
@@ -35,33 +35,34 @@ export default function ProductImageGallery({
   const mainImage = heroImage ?? images[index];
 
   return (
-    <div>
-      <div className="w-full h-[520px] rounded overflow-hidden border bg-white mb-4 relative">
-        {/* 主图 - 使用普通 img 保持简单并避免必须提供 width/height */}
-        <Image
-          src={mainImage}
-          alt={`image-${index}`}
-          fill
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          style={{ objectFit: "contain" }}
-          priority={false}
-        />
+    <div className="flex flex-col h-full">
+      <div className="relative flex-1 rounded-lg overflow-hidden border bg-linear-to-br from-gray-50 via-white to-gray-100 mb-4 min-h-0">
+        <div className="relative w-full h-full flex items-center justify-center p-4">
+          <Image
+            src={mainImage}
+            alt={`image-${index}`}
+            fill
+            sizes="(min-width: 1024px) 60vw, 100vw"
+            style={{ objectFit: "contain" }}
+            priority={false}
+            className="transition-transform duration-200 ease-in-out"
+          />
+        </div>
       </div>
 
-      {/* 缩略图列表 */}
-      <div className="flex gap-2 overflow-x-auto">
+      <div className="flex gap-2 overflow-x-auto md:justify-start pb-2">
         {images.map((src, i) => (
           <button
             key={src + i}
-            className={`border rounded p-1 ${i === index ? "ring-2 ring-indigo-400" : "opacity-80"}`}
+            className={`border rounded-lg p-1 bg-white flex items-center justify-center ${i === index ? "ring-2 ring-indigo-400 shadow" : "opacity-90"}`}
             onClick={() => setIndex(i)}
             aria-label={`show-image-${i}`}
           >
             <Image
               src={src}
               alt={`thumb-${i}`}
-              width={80}
-              height={80}
+              width={88}
+              height={88}
               className="rounded object-cover"
               loading="lazy"
             />

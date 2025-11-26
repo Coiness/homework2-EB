@@ -20,13 +20,11 @@ export default function ProductPage({
 }: ProductPageProps) {
   return (
     <div className="max-w-6xl mx-auto p-6">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Client wrapper - keep selectedSku in client state and synchronize gallery & info panel */}
-        <ProductPageClient
-          product={product}
-          initialSkuId={initialSkuId ?? null}
-        />
-      </div>
+      {/* Client wrapper - keep selectedSku in client state and synchronize gallery & info panel */}
+      <ProductPageClient
+        product={product}
+        initialSkuId={initialSkuId ?? null}
+      />
 
       {/* Recommendations — use a small server component for clarity and reuse */}
       <Recommendations items={product.recommendations ?? []} />

@@ -11,6 +11,7 @@ interface Props {
   totalPages: number;
   layout?: "grid" | "list";
   productCount?: number;
+  pageSize?: number;
   defaultSort?: string;
 }
 
@@ -26,6 +27,7 @@ export default function ProductsClient({
   totalPages,
   layout = "grid",
   productCount = 0,
+  pageSize = 12,
   defaultSort = "default",
 }: Props) {
   const router = useRouter();
@@ -51,7 +53,21 @@ export default function ProductsClient({
         params.toString() ? `${pathname}?${params.toString()}` : pathname
       );
     } catch (e) {
-      // ignore
+      console.log(e);
+    }
+  };
+
+  // 傻鸟ai忘写这个逻辑了。。。擦屁股这一块
+  const onPageSizeChange = (pageSize: number) => {
+    try {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("pageSize", String(pageSize));
+      params.set("page", "1");
+      router.push(
+        params.toString() ? `${pathname}?${params.toString()}` : `${pathname}`
+      );
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -83,10 +99,12 @@ export default function ProductsClient({
         isLoading={false}
         isEmpty={products.length === 0}
         error={null}
+        pageSize={parseInt(searchParams.get("pageSize") ?? String(pageSize))}
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={onPageChange}
         onProductClick={onProductClick}
+        onPageSizeChange={onPageSizeChange}
       />
     </div>
   );
